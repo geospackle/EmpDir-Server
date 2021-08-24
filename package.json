@@ -1,0 +1,23 @@
+{
+  "name": "empdir-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geospackle/EmpDir-Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geospackle/EmpDir-Server/issues"
+  },
+  "homepage": "https://github.com/geospackle/EmpDir-Server#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  }
+}
