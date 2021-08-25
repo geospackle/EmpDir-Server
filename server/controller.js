@@ -55,8 +55,18 @@ function createQueue(tasks, maxNumOfWorkers = 4) {
   });
 }
 
+const postMultipleReqs = (apiCall, request, response, iterations) => {
+  iterations = iterations - 1;
+  console.log("iter", iterations);
+  if (iterations === 0) return;
+  apiCall(request, response).then(
+    postMultipleReqs(apiCall, request, response, iterations)
+  );
+};
+
 const insertMockEmployees = async (req, res) => {
   Employee.destroy({ truncate: true });
+  //error handling
   const noEmployees = req.query.number;
   const url = "https://randomuser.me/api/?results=${noEmployees}";
   axios
@@ -66,27 +76,31 @@ const insertMockEmployees = async (req, res) => {
       const randomNo = Math.floor(Math.random() * 4);
       const department = departments[randomNo];
       const data = response.data.results;
-      for (const employee of data) {
-        const request = {
-          body: {
-            first_name: employee.name.first,
-            last_name: employee.name.last,
-            phone: employee.phone,
-            department: department,
-          },
-        };
-        const response = {
-          send: function () {},
-          json: function (err) {
-            console.log(err);
-          },
-          status: function (responseStatus) {
-            console.log(responseStatus);
-            return this;
-          },
-        };
-        postEmployee(request, response);
-      }
+      const employee = data[0];
+
+      const mockRequest = {
+        body: {
+          first_name: employee.name.first,
+          last_name: employee.name.last,
+          phone: employee.phone,
+          department: department,
+        },
+      };
+
+      const mockResponse = {
+        send: function () {},
+        json: function (err) {
+          console.log(err);
+        },
+        status: function (responseStatus) {
+          console.log(responseStatus);
+          return this;
+        },
+      };
+
+      console.log("multipost");
+      // set new department each time
+      postMultipleReqs(postEmployee, mockRequest, mockResponse, noEmployees);
       res.status(200).send("got response from 3rd party server");
     })
     .catch(function (error) {
