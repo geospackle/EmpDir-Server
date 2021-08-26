@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-const Sequelize = require("sequelize");
 
+const Sequelize = require("sequelize");
+require("dotenv").config();
 const { DataTypes } = Sequelize;
 
-const dbConnectURL =
-  "postgres://kivjxxep:vjw9CCl60PRlbzz4pAxv_NTFQuk-5OsL@chunee.db.elephantsql.com/kivjxxep";
+const dbConnectURL = process.env.DB_CONNECT_URL;
 
 const sequelizeConnection = new Sequelize(dbConnectURL, {
   dialect: "postgres",
