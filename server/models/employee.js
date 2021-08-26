@@ -8,7 +8,7 @@ const employee = sequelizeConnection.define("employee", {
     primaryKey: true,
   },
   first_name: {
-    type: DataTypes.STRING(), // redd, carcass, or live
+    type: DataTypes.STRING(),
     allowNull: false,
   },
   last_name: {
@@ -16,6 +16,9 @@ const employee = sequelizeConnection.define("employee", {
     allowNull: false,
   },
   phone: {
+    type: DataTypes.STRING(),
+  },
+  picture: {
     type: DataTypes.STRING(),
   },
   department: {

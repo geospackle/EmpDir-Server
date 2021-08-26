@@ -4,6 +4,6 @@ const controller = require("./controller");
 
 router.get("/employee", controller.getEmployee);
 router.post("/employee", controller.postEmployee);
-router.post("/insert-mock-employees", controller.insertMockEmployees);
+router.post("/_insert-mock-employee", controller.insertMockEmployee);
 
 module.exports = router;
